@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 FROM apache/superset:latest
 
 # Copy file config (nếu có)
@@ -15,9 +14,3 @@ EXPOSE 8088
 
 # Chạy script khi container khởi động
 CMD ["/app/docker-entrypoint.sh"]
-=======
-FROM apache/superset
-
-EXPOSE 8088
-CMD ["gunicorn", "-b", "0.0.0.0:8088", "superset.app:create_app()"]
->>>>>>> 55706147b9d74acfc128e3edb7751bbb00e5e009
