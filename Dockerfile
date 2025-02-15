@@ -1,13 +1,9 @@
 FROM apache/superset:latest
 
+# Copy script vào container với quyền thực thi
+COPY --chmod=+x docker-entrypoint.sh /app/docker-entrypoint.sh
 
-# Copy script khởi tạo admin
-COPY docker-entrypoint.sh /app/docker-entrypoint.sh
-
-# Cấp quyền thực thi cho script ngay khi build
-RUN chmod +x /app/docker-entrypoint.sh
-
-# Expose cổng Superset (8088)
+# Expose cổng 8088 cho Superset
 EXPOSE 8088
 
 # Chạy script khi container khởi động
