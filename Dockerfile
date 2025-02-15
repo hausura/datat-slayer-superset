@@ -1,7 +1,5 @@
 FROM apache/superset:latest
 
-# Copy file config (nếu có)
-COPY superset_config.py /app/superset_config.py
 
 # Copy script khởi tạo admin
 COPY docker-entrypoint.sh /app/docker-entrypoint.sh
