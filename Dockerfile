@@ -20,12 +20,12 @@ RUN python -m pip install pip-tools
 # Kiểm tra phiên bản để xác nhận cài đặt thành công
 RUN python --version
 RUN python -m pip --version
-RUN python -m piptools --version
+RUN pip-compile --version
 
 # Biên dịch các file *.in thành *.txt bằng cách gọi trực tiếp bằng python
-RUN python -m piptools.scripts.compile requirements/base.in -o requirements/base.txt \
-    && python -m piptools.scripts.compile requirements/development.in -o requirements/development.txt \
-    && python -m piptools.scripts.compile requirements/translations.in -o requirements/translations.txt
+RUN pip-compile requirements/base.in -o requirements/base.txt \
+    && pip-compile requirements/development.in -o requirements/development.txt \
+    && pip-compile requirements/translations.in -o requirements/translations.txt
 
 # Cài đặt tất cả các package từ các file *.txt
 RUN pip install -r requirements/base.txt \
