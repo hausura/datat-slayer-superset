@@ -11,10 +11,10 @@ COPY requirements/ ./requirements/
 RUN pip install --upgrade pip \
     && pip install pip-tools
 
-# Biên dịch các file *.in thành *.txt nếu cần thiết
-RUN pip-compile requirements/base.in -o requirements/base.txt \
-    && pip-compile requirements/development.in -o requirements/development.txt \
-    && pip-compile requirements/translations.in -o requirements/translations.txt
+# Sử dụng cách gọi trực tiếp module để biên dịch các file *.in thành *.txt
+RUN python -m piptools.compile requirements/base.in -o requirements/base.txt \
+    && python -m piptools.compile requirements/development.in -o requirements/development.txt \
+    && python -m piptools.compile requirements/translations.in -o requirements/translations.txt
 
 # Cài đặt tất cả các package từ các file *.txt
 RUN pip install -r requirements/base.txt \
