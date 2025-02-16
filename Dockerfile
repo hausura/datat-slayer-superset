@@ -18,13 +18,10 @@ COPY requirements/ ./requirements/
 RUN pip install --upgrade pip \
     && pip install pip-tools
 
-# Thêm thư mục chứa pip-compile vào PATH
-ENV PATH=$PATH:/root/.local/bin
-
-# Biên dịch các file *.in thành *.txt
-RUN pip-compile requirements/base.in -o requirements/base.txt \
-    && pip-compile requirements/development.in -o requirements/development.txt \
-    && pip-compile requirements/translations.in -o requirements/translations.txt
+# Biên dịch các file *.in thành *.txt bằng cách gọi trực tiếp bằng python
+RUN python -m piptools.compile requirements/base.in -o requirements/base.txt \
+    && python -m piptools.compile requirements/development.in -o requirements/development.txt \
+    && python -m piptools.compile requirements/translations.in -o requirements/translations.txt
 
 # Cài đặt tất cả các package từ các file *.txt
 RUN pip install -r requirements/base.txt \
