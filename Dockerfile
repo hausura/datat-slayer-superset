@@ -13,16 +13,19 @@ COPY requirements/ ./requirements/
 # Đảm bảo quyền ghi trên thư mục requirements
 RUN chmod -R 777 requirements/
 
-# Cập nhật pip và cài đặt pip-tools để xử lý các file *.in
-RUN pip install --upgrade pip pip-tools
+# Cập nhật pip và cài đặt pip-tools
+RUN python -m pip install --upgrade pip
+RUN python -m pip install pip-tools
 
-# Hiển thị nội dung của requirements để kiểm tra
-RUN ls -l requirements/ && cat requirements/base.in
+# Kiểm tra phiên bản để xác nhận cài đặt thành công
+RUN python --version
+RUN python -m pip --version
+RUN python -m piptools --version
 
 # Biên dịch các file *.in thành *.txt bằng cách gọi trực tiếp bằng python
-RUN python -m piptools.compile requirements/base.in -o requirements/base.txt \
-    && python -m piptools.compile requirements/development.in -o requirements/development.txt \
-    && python -m piptools.compile requirements/translations.in -o requirements/translations.txt
+RUN python -m piptools.scripts.compile requirements/base.in -o requirements/base.txt \
+    && python -m piptools.scripts.compile requirements/development.in -o requirements/development.txt \
+    && python -m piptools.scripts.compile requirements/translations.in -o requirements/translations.txt
 
 # Cài đặt tất cả các package từ các file *.txt
 RUN pip install -r requirements/base.txt \
