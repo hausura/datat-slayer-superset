@@ -10,6 +10,7 @@ pip-compile requirements/development.in -o requirements/development.txt
 pip-compile requirements/translations.in -o requirements/translations.txt
 
 # Cài đặt các package từ file requirements
+pip install Pillow
 pip install -r requirements/base.txt
 pip install -r requirements/development.txt
 pip install -r requirements/translations.txt
