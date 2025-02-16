@@ -1,8 +1,5 @@
 #!/bin/bash
 
-# Đảm bảo quyền root để cài đặt dependencies
-whoami | grep root > /dev/null || exec sudo "$0" "$@"
-
 # Cập nhật pip và cài đặt pip-tools (nếu cần)
 python -m pip install --upgrade pip
 python -m pip install pip-tools
