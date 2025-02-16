@@ -7,20 +7,9 @@ WORKDIR /app
 # Copy toàn bộ thư mục requirements vào container
 COPY requirements/ ./requirements/
 
-# Cập nhật pip và cài đặt pip-tools để xử lý các file *.in
+# Cập nhật pip và cài đặt các dependencies trực tiếp
 RUN pip install --upgrade pip \
-    && pip install pip-tools
-
-# Kiểm tra vị trí của pip-compile để đảm bảo nó đã được cài
-RUN which pip-compile
-
-# Sử dụng đường dẫn tuyệt đối để gọi pip-compile
-RUN /usr/local/bin/pip-compile requirements/base.in -o requirements/base.txt \
-    && /usr/local/bin/pip-compile requirements/development.in -o requirements/development.txt \
-    && /usr/local/bin/pip-compile requirements/translations.in -o requirements/translations.txt
-
-# Cài đặt tất cả các package từ các file *.txt
-RUN pip install -r requirements/base.txt \
+    && pip install -r requirements/base.txt \
     && pip install -r requirements/development.txt \
     && pip install -r requirements/translations.txt
 
