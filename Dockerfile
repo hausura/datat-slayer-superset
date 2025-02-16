@@ -7,16 +7,17 @@ USER root
 # Đặt thư mục làm việc
 WORKDIR /app
 
-# Đảm bảo quyền ghi trên thư mục làm việc
-RUN chown -R superset:superset /app
-RUN chmod -R 775 /app
-
 # Copy toàn bộ thư mục requirements vào container
 COPY requirements/ ./requirements/
 
+# Đảm bảo quyền ghi trên thư mục requirements
+RUN chmod -R 777 requirements/
+
 # Cập nhật pip và cài đặt pip-tools để xử lý các file *.in
-RUN pip install --upgrade pip \
-    && pip install pip-tools
+RUN pip install --upgrade pip pip-tools
+
+# Hiển thị nội dung của requirements để kiểm tra
+RUN ls -l requirements/ && cat requirements/base.in
 
 # Biên dịch các file *.in thành *.txt bằng cách gọi trực tiếp bằng python
 RUN python -m piptools.compile requirements/base.in -o requirements/base.txt \
