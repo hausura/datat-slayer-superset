@@ -11,6 +11,7 @@ pip-compile requirements/translations.in -o requirements/translations.txt
 
 # Cài đặt các package từ file requirements
 pip install Pillow
+pip install psycopg2-binary
 pip install -r requirements/base.txt
 pip install -r requirements/development.txt
 pip install -r requirements/translations.txt
